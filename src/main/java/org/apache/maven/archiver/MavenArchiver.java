@@ -25,6 +25,7 @@ import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.utils.StringUtils;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
 import org.codehaus.plexus.archiver.jar.Manifest;
 import org.codehaus.plexus.archiver.jar.ManifestException;
@@ -36,7 +37,6 @@ import org.codehaus.plexus.interpolation.PrefixedPropertiesValueSource;
 import org.codehaus.plexus.interpolation.RecursionInterceptor;
 import org.codehaus.plexus.interpolation.StringSearchInterpolator;
 import org.codehaus.plexus.interpolation.ValueSource;
-import org.apache.maven.shared.utils.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -121,7 +121,7 @@ public class MavenArchiver
                 String key = entry.getKey();
                 String value = entry.getValue();
                 Manifest.Attribute attr = manifest.getMainSection().getAttribute( key );
-                if ( key.equals( "ClassPath" ) && attr != null )
+                if ( key.equals( "Class-Path" ) && attr != null )
                 {
                     // Merge the user-supplied Class-Path value with the programmatically
                     // created Class-Path. Note that the user-supplied value goes first
@@ -355,6 +355,8 @@ public class MavenArchiver
             {
                 // Class-Path is special and should be added to manifest even if
                 // it is specified in the manifestEntries section
+                System.out.println( "Class-Path:" );
+                System.out.println( classpath.toString() );
                 addManifestAttribute( m, "Class-Path", classpath.toString() );
             }
         }
