@@ -16,5 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+//temporarily added to make sure .repository will be removed.
+node () {
 
+  dir ('.repository') {
+    deleteDir()
+  }
+}
 asfMavenTlpStdBuild()
